@@ -1,11 +1,11 @@
-const cds = require('@sap/cds');
+const cds = require("@sap/cds");
 
-const serv_impl = cds.service.impl(async function () {
-    const { Risks, BussinessPartners } = this.entities.
+module.exports = cds.service.impl( function () {
     
-    this.after("READ", Risks, (data) => {
+    const { Risks, BussinessPartners } = this.entities
+    this.after('READ', Risks, (data) => {
         const risks = Array.isArray(data)? data : [data];
-        risks.forEach(risk => {
+        risks.forEach((risk) => {
             if(risk.impact >= 100000){
                 risk.criticality = 1;
             } else {
@@ -13,6 +13,5 @@ const serv_impl = cds.service.impl(async function () {
             }
         });
     });
-});
-
-module.exports = { serv_impl }
+})
+// module.exports =  RiskService;

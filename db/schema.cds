@@ -9,7 +9,7 @@ entity Risks : managed {
     descr : String;
     miti : Association to Mitigations;
     impact : Integer;
-    criticality : Integer
+    criticality : Integer;
 }
 
 entity Mitigations : managed {
@@ -20,3 +20,10 @@ entity Mitigations : managed {
     risks: Association to many Risks on risks.miti = $self;
 }
 
+using { API_BUSINESS_PARTNER as external } from '../srv/external/API_BUSINESS_PARTNER.csn';
+
+entity BussinessPartners as projection on external.A_BusinessPartner{
+    key BusinessPartner,
+    LastName,
+    FirstName
+}
